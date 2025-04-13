@@ -2,244 +2,409 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FoodVerse - Order Anything!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MoodPanda - Food Order</title>
   <style>
-   <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #fef9f4;
-    color: #333;
-  }
-  header {
-    background-color: #ff4d4f;
-    padding: 1rem;
-    text-align: center;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  color: #343a40;
+  overflow-x: hidden;
+}
+
+header {
+  background-color: #2c3e50;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-size: 2vw;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+  position: sticky;
+  top: 80px;
+  z-index: 999;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+nav a:hover {
+  color: #e74c3c;
+}
+
+.cart-icon {
+  position: relative;
+  cursor: pointer;
+  font-weight: bold;
+  color: #2c3e50;
+  font-size: 1.5rem;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+}
+
+section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
+  color: #34495e;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card .emoji {
+  font-size: 4rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: #2c3e50;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #7f8c8d;
+}
+
+.order-button {
+  margin-top: auto;
+  padding: 0.8rem;
+  width: 100%;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.order-button:hover {
+  background-color: #c0392b;
+}
+
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+  z-index: 1001;
+  padding: 1rem;
+  transition: right 0.4s ease;
+}
+
+.cart-panel.open {
+  right: 0;
+}
+
+.cart-panel h3 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.cart-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #e74c3c;
+  float: right;
+  cursor: pointer;
+}
+
+.cart-panel ul {
+  list-style: none;
+  margin-top: 1rem;
+  padding-left: 0;
+  font-size: 1rem;
+}
+
+.cart-panel li {
+  margin-bottom: 0.8rem;
+  color: #34495e;
+}
+
+footer {
+  background-color: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 1.2rem;
+  margin-top: 3rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
   nav {
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-links {
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
-    padding: 1rem;
-    background-color: #fff0f0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   }
+
   nav a {
-    text-decoration: none;
-    color: #ff4d4f;
-    font-weight: bold;
     font-size: 1rem;
   }
+
+  .cart-icon {
+    margin-top: 0.5rem;
+    align-self: flex-end;
+  }
+
   section {
-    max-width: 1000px;
-    margin: auto;
-    padding: 1.5rem;
-  }
-  .menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-  .card {
-    background-color: white;
-    border-radius: 1rem;
     padding: 1rem;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
   }
-  .card:hover {
-    transform: scale(1.03);
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.6rem;
   }
-  .card img {
-    width: 100%;
-    border-radius: 1rem;
-    height: 180px;
-    object-fit: cover;
+
+  h2 {
+    font-size: 1.6rem;
   }
-  .card h3 {
-    margin: 0.5rem 0;
-    font-size: 1.2rem;
-  }
-  .card p {
-    font-size: 0.9rem;
-  }
+
   .order-button {
-    margin-top: 1rem;
-    padding: 0.7rem;
-    width: 100%;
-    background-color: #ff4d4f;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
     font-size: 1rem;
-  }
-  .summary {
-    margin-top: 2rem;
-    font-size: 1rem;
-    background-color: #fff5f5;
-    padding: 1rem;
-    border-radius: 1rem;
-    display: none;
-    overflow-x: auto;
-  }
-  footer {
-    background-color: #ff4d4f;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    margin-top: 3rem;
+    padding: 0.6rem;
   }
 
-  /* 🔁 Responsive Tweaks */
-  @media (max-width: 768px) {
-    nav {
-      flex-direction: column;
-      align-items: center;
-    }
-    .card img {
-      height: 150px;
-    }
+  .cart-panel {
+    width: 90%;
   }
-
-  @media (max-width: 480px) {
-    header h1 {
-      font-size: 1.5rem;
-    }
-    .card h3 {
-      font-size: 1rem;
-    }
-    .order-button {
-      font-size: 0.9rem;
-      padding: 0.5rem;
-    }
-    nav a {
-      font-size: 0.9rem;
-    }
-    .summary {
-      font-size: 0.9rem;
-    }
-  }
-</style>
-
+}
   </style>
 </head>
 <body>
+
   <header>
-    <h1>🍽️ Welcome to FoodVerse</h1>
-    <p>One stop for your cravings!</p>
+    <h1>🍽️ Welcome to MoodPanda</h1>
   </header>
 
   <nav>
-    <a href="#pizza">Pizza</a>
-    <a href="#drinks">Drinks</a>
-    <a href="#desserts">Desserts</a>
-    <a href="#summary">Cart</a>
+    <div class="nav-links">
+      <a onclick="scrollToSection('pizza')">Pizza</a>
+      <a onclick="scrollToSection('burgers')">Burgers</a>
+      <a onclick="scrollToSection('drinks')">Drinks</a>
+      <a onclick="scrollToSection('desserts')">Desserts</a>
+    </div>
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒 Cart <span class="cart-count" id="cartCount">0</span>
+    </div>
   </nav>
 
+  <!-- Pizza -->
   <section id="pizza">
     <h2>🍕 Pizza Menu</h2>
     <div class="menu-grid">
       <div class="card">
-        <img src="https://source.unsplash.com/400x300/?pizza" alt="Pizza">
-        <h3>Chicken Tikka</h3>
-        <p>Spicy grilled chicken with herbs</p>
-        <button class="order-button" onclick="addToCart('Chicken Tikka Pizza', 500)">Order - Rs.500</button>
+        <div class="emoji">🍕</div>
+        <h3>Italian Margherita</h3>
+        <p>Classic mozzarella & basil pizza.</p>
+        <button class="order-button" onclick="addToCart('Italian Margherita', 450)">Order - Rs.450</button>
       </div>
       <div class="card">
-        <img src="https://source.unsplash.com/400x300/?margherita" alt="Pizza">
-        <h3>Margherita</h3>
-        <p>Classic cheese and tomato</p>
-        <button class="order-button" onclick="addToCart('Margherita Pizza', 450)">Order - Rs.450</button>
+        <div class="emoji">🔥🍕</div>
+        <h3>Pepperoni Blast</h3>
+        <p>Loaded with pepperoni & cheese.</p>
+        <button class="order-button" onclick="addToCart('Pepperoni Blast', 550)">Order - Rs.550</button>
       </div>
       <div class="card">
-        <img src="https://source.unsplash.com/400x300/?fajita" alt="Pizza">
-        <h3>Fajita</h3>
-        <p>Loaded with peppers and spices</p>
-        <button class="order-button" onclick="addToCart('Fajita Pizza', 550)">Order - Rs.550</button>
+        <div class="emoji">🥦🍕</div>
+        <h3>Veggie Delight</h3>
+        <p>Fresh vegetables with herbs.</p>
+        <button class="order-button" onclick="addToCart('Veggie Delight', 400)">Order - Rs.400</button>
       </div>
     </div>
   </section>
 
+  <!-- Burgers -->
+  <section id="burgers">
+    <h2>🍔 Burgers</h2>
+    <div class="menu-grid">
+      <div class="card">
+        <div class="emoji">🐄🍔</div>
+        <h3>Beef Zinger</h3>
+        <p>Juicy beef zinger with lettuce.</p>
+        <button class="order-button" onclick="addToCart('Beef Zinger', 350)">Order - Rs.350</button>
+      </div>
+      <div class="card">
+        <div class="emoji">🧀🍔</div>
+        <h3>Cheese Burger</h3>
+        <p>Melting cheese & patty inside.</p>
+        <button class="order-button" onclick="addToCart('Cheese Burger', 300)">Order - Rs.300</button>
+      </div>
+      <div class="card">
+        <div class="emoji">🐔🍔</div>
+        <h3>Chicken Supreme</h3>
+        <p>Grilled chicken with creamy sauce.</p>
+        <button class="order-button" onclick="addToCart('Chicken Supreme', 370)">Order - Rs.370</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Drinks -->
   <section id="drinks">
     <h2>🥤 Drinks</h2>
     <div class="menu-grid">
       <div class="card">
-        <img src="https://source.unsplash.com/400x300/?pepsi" alt="Pepsi">
-        <h3>Pepsi</h3>
-        <p>Cold & refreshing</p>
-        <button class="order-button" onclick="addToCart('Pepsi', 80)">Add - Rs.80</button>
+        <div class="emoji">🥶🥤</div>
+        <h3>Cold Cola</h3>
+        <p>Chilled fizzy cola drink.</p>
+        <button class="order-button" onclick="addToCart('Cold Cola', 80)">Add - Rs.80</button>
       </div>
       <div class="card">
-        <img src="https://source.unsplash.com/400x300/?sprite" alt="Sprite">
-        <h3>Sprite</h3>
-        <p>Lemon twist</p>
-        <button class="order-button" onclick="addToCart('Sprite', 80)">Add - Rs.80</button>
+        <div class="emoji">🍊🧃</div>
+        <h3>Orange Juice</h3>
+        <p>Fresh orange juice.</p>
+        <button class="order-button" onclick="addToCart('Orange Juice', 120)">Add - Rs.120</button>
+      </div>
+      <div class="card">
+        <div class="emoji">🍫🥤</div>
+        <h3>Chocolate Shake</h3>
+        <p>Thick chocolate milkshake.</p>
+        <button class="order-button" onclick="addToCart('Chocolate Shake', 150)">Add - Rs.150</button>
       </div>
     </div>
   </section>
 
+  <!-- Desserts -->
   <section id="desserts">
     <h2>🍰 Desserts</h2>
     <div class="menu-grid">
       <div class="card">
-        <img src="https://source.unsplash.com/400x300/?dessert" alt="Dessert">
+        <div class="emoji">🍫🍰</div>
         <h3>Chocolate Cake</h3>
-        <p>Rich and moist</p>
-        <button class="order-button" onclick="addToCart('Chocolate Cake', 200)">Add - Rs.200</button>
+        <p>Rich moist chocolate flavor.</p>
+        <button class="order-button" onclick="addToCart('Chocolate Cake', 250)">Add - Rs.250</button>
       </div>
       <div class="card">
-        <img src="https://source.unsplash.com/400x300/?icecream" alt="Ice Cream">
+        <div class="emoji">🍦🍨</div>
         <h3>Vanilla Ice Cream</h3>
-        <p>Creamy and cool</p>
-        <button class="order-button" onclick="addToCart('Vanilla Ice Cream', 150)">Add - Rs.150</button>
+        <p>Chilled and creamy.</p>
+        <button class="order-button" onclick="addToCart('Vanilla Ice Cream', 180)">Add - Rs.180</button>
       </div>
     </div>
   </section>
 
-  <section id="summary">
-    <h2>🛒 Your Cart</h2>
-    <div class="summary" id="cartSummary"></div>
-  </section>
+  <!-- Cart Panel -->
+  <div class="cart-panel" id="cartPanel">
+    <button class="cart-close" onclick="toggleCart()">❌</button>
+    <h3>Your Cart</h3>
+    <div id="cartSummary"></div>
+  </div>
 
-  <footer>
-    <p>© 2025 FoodVerse - Built with ❤️ using HTML, CSS & JavaScript</p>
-  </footer>
+  <br><br><br>
 
   <script>
     const cart = [];
 
-    function addToCart(item, price) {
-      cart.push({ item, price });
-      showCart();
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     }
 
-    function showCart() {
-      const summaryDiv = document.getElementById('cartSummary');
-      if (cart.length === 0) {
-        summaryDiv.style.display = 'none';
-        return;
+    function addToCart(item, price) {
+      const found = cart.find(c => c.item === item);
+      if (found) {
+        found.quantity++;
+      } else {
+        cart.push({ item, price, quantity: 1 });
       }
-      summaryDiv.style.display = 'block';
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const count = cart.reduce((acc, curr) => acc + curr.quantity, 0);
+      document.getElementById('cartCount').innerText = count;
+
+      const cartSummary = document.getElementById('cartSummary');
       let html = '<ul>';
       let total = 0;
-      cart.forEach(order => {
-        html += `<li>${order.item} - Rs.${order.price}</li>`;
-        total += order.price;
+      cart.forEach(c => {
+        html += `<li>${c.item} x ${c.quantity} - Rs.${c.quantity * c.price}</li>`;
+        total += c.quantity * c.price;
       });
-      html += `</ul><strong>Total: Rs.${total}</strong>`;
-      summaryDiv.innerHTML = html;
+      html += `</ul><hr><strong>Total: Rs.${total}</strong>`;
+      cartSummary.innerHTML = html;
+    }
+
+    function toggleCart() {
+      document.getElementById('cartPanel').classList.toggle('open');
     }
   </script>
+
 </body>
 </html>
