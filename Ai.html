@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FoodVerse - Order Anything!</title>
+  <style>
+   <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fef9f4;
+    color: #333;
+  }
+  header {
+    background-color: #ff4d4f;
+    padding: 1rem;
+    text-align: center;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #fff0f0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  nav a {
+    text-decoration: none;
+    color: #ff4d4f;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  section {
+    max-width: 1000px;
+    margin: auto;
+    padding: 1.5rem;
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+  }
+  .card:hover {
+    transform: scale(1.03);
+  }
+  .card img {
+    width: 100%;
+    border-radius: 1rem;
+    height: 180px;
+    object-fit: cover;
+  }
+  .card h3 {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+  }
+  .card p {
+    font-size: 0.9rem;
+  }
+  .order-button {
+    margin-top: 1rem;
+    padding: 0.7rem;
+    width: 100%;
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  .summary {
+    margin-top: 2rem;
+    font-size: 1rem;
+    background-color: #fff5f5;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: none;
+    overflow-x: auto;
+  }
+  footer {
+    background-color: #ff4d4f;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 3rem;
+  }
+
+  /* 🔁 Responsive Tweaks */
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      align-items: center;
+    }
+    .card img {
+      height: 150px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.5rem;
+    }
+    .card h3 {
+      font-size: 1rem;
+    }
+    .order-button {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+    nav a {
+      font-size: 0.9rem;
+    }
+    .summary {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🍽️ Welcome to FoodVerse</h1>
+    <p>One stop for your cravings!</p>
+  </header>
+
+  <nav>
+    <a href="#pizza">Pizza</a>
+    <a href="#drinks">Drinks</a>
+    <a href="#desserts">Desserts</a>
+    <a href="#summary">Cart</a>
+  </nav>
+
+  <section id="pizza">
+    <h2>🍕 Pizza Menu</h2>
+    <div class="menu-grid">
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?pizza" alt="Pizza">
+        <h3>Chicken Tikka</h3>
+        <p>Spicy grilled chicken with herbs</p>
+        <button class="order-button" onclick="addToCart('Chicken Tikka Pizza', 500)">Order - Rs.500</button>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?margherita" alt="Pizza">
+        <h3>Margherita</h3>
+        <p>Classic cheese and tomato</p>
+        <button class="order-button" onclick="addToCart('Margherita Pizza', 450)">Order - Rs.450</button>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?fajita" alt="Pizza">
+        <h3>Fajita</h3>
+        <p>Loaded with peppers and spices</p>
+        <button class="order-button" onclick="addToCart('Fajita Pizza', 550)">Order - Rs.550</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="drinks">
+    <h2>🥤 Drinks</h2>
+    <div class="menu-grid">
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?pepsi" alt="Pepsi">
+        <h3>Pepsi</h3>
+        <p>Cold & refreshing</p>
+        <button class="order-button" onclick="addToCart('Pepsi', 80)">Add - Rs.80</button>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?sprite" alt="Sprite">
+        <h3>Sprite</h3>
+        <p>Lemon twist</p>
+        <button class="order-button" onclick="addToCart('Sprite', 80)">Add - Rs.80</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="desserts">
+    <h2>🍰 Desserts</h2>
+    <div class="menu-grid">
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?dessert" alt="Dessert">
+        <h3>Chocolate Cake</h3>
+        <p>Rich and moist</p>
+        <button class="order-button" onclick="addToCart('Chocolate Cake', 200)">Add - Rs.200</button>
+      </div>
+      <div class="card">
+        <img src="https://source.unsplash.com/400x300/?icecream" alt="Ice Cream">
+        <h3>Vanilla Ice Cream</h3>
+        <p>Creamy and cool</p>
+        <button class="order-button" onclick="addToCart('Vanilla Ice Cream', 150)">Add - Rs.150</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="summary">
+    <h2>🛒 Your Cart</h2>
+    <div class="summary" id="cartSummary"></div>
+  </section>
+
+  <footer>
+    <p>© 2025 FoodVerse - Built with ❤️ using HTML, CSS & JavaScript</p>
+  </footer>
+
+  <script>
+    const cart = [];
+
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      showCart();
+    }
+
+    function showCart() {
+      const summaryDiv = document.getElementById('cartSummary');
+      if (cart.length === 0) {
+        summaryDiv.style.display = 'none';
+        return;
+      }
+      summaryDiv.style.display = 'block';
+      let html = '<ul>';
+      let total = 0;
+      cart.forEach(order => {
+        html += `<li>${order.item} - Rs.${order.price}</li>`;
+        total += order.price;
+      });
+      html += `</ul><strong>Total: Rs.${total}</strong>`;
+      summaryDiv.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
